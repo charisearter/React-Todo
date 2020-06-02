@@ -10,8 +10,8 @@ const Form = (props) => {
       type='text'
       paceholder='Add a task to do'
       />
-      <button id='submit' onClick={props.onSubmit}>Add a Task</button>
-      <button id='clear' onClick={props.onClear}>Clear Completed Tasks</button>
+     <p><button id='submit' onClick={props.onSubmit}>Add a Task</button></p> 
+     <p> <button id='clear' onClick={props.onClear}>Clear Completed Tasks</button></p>
     </form>
   );
 };

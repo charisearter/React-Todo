@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/TodoForm';
 import List from './components/TodoList';
+import './components/Todo.css';
 
 const todolist = [
   {
@@ -75,7 +76,7 @@ class App extends React.Component {
     const stateCopy = [...this.state.todolist];
     const newState = [];
     stateCopy.map((item) => { //what is wrong here?
-      if (item.complete === false) {
+      if (item.complete === false) { //clears all tasks
         newState.push(item);
       }
       this.setState({ todolist:newState });
@@ -84,7 +85,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='container'>
         <h2>ToDo List</h2>
         <List state={this.state} onComplete={this.onComplete} />
         <Form 
