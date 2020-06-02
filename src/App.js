@@ -3,6 +3,7 @@ import Form from './components/TodoForm';
 import List from './components/TodoList';
 import './components/Todo.css';
 
+//todo list object
 const todolist = [
   {
   task: 'Fold the blankets',
@@ -20,7 +21,7 @@ class App extends React.Component {
 
   constructor() {
     super();
-    this.state = {
+    this.state = { //state of todolist is the todolist object
       todolist: todolist,
     };
     this.onComplete = this.onComplete.bind(this);
@@ -29,13 +30,11 @@ class App extends React.Component {
   //newTask state
   newTask = {
     task: '', //task name
-    id: Date.now(), //add the date and time
+    id: Date.now(), //add some long random number
     completed: false, //not done yet
   };
 
   onComplete = e => {
-  //  e.stopPropagation();
- 
     this.setState({ todolist: this.state.todolist.map( item => {
       if(item.id === e){
         return {...item, completed:!item.completed
@@ -53,8 +52,6 @@ class App extends React.Component {
   //on Submit
   onSubmit = e =>{ 
     e.preventDefault(); 
-    // e.stopPropagation();
-
     this.setState({ todolist: [...this.state.todolist, this.newTask] });
     this.newTask = {
       task:'',
@@ -68,14 +65,7 @@ class App extends React.Component {
   //handle Clear Complete
 
   onClear = (e) => {
-     e.preventDefault(); //prevent default behavior
-    // e.stopPropagation(); //prevents bubbling up to parent or capturing down to child
-    // const stateCopy = [...this.state.todolist];
-    // const newState = [];
-    // stateCopy.map((item) => { 
-    //   if (item.complete === false) { //clears all tasks but i want it to only clear finished tasks
-    //     newState.push(item);
-    //   }
+     e.preventDefault(); 
       this.setState({ todolist: this.state.todolist.filter(item => {
         return !item.completed;
       })  
