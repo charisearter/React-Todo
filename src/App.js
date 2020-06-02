@@ -65,17 +65,17 @@ class App extends React.Component {
       completed: false,
     };
 
-    //document.querySelector('#newtask').value = '';
+    document.querySelector('#newtask').value = ''; //return input field to blank
 };
 
   //handle Clear Complete
 
   onClear = e => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault(); //prevent default behavior
+    e.stopPropagation(); //prevents bubbling up to parent or capturing down to child
     const stateCopy = [...this.state.todolist];
     const newState = [];
-    stateCopy.map((item) => { //what is wrong here?
+    stateCopy.map((item) => { //No idea what is wrong here
       if (item.complete === false) { //clears all tasks
         newState.push(item);
       }
