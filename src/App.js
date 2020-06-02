@@ -21,32 +21,29 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todolist,
+      todolist: todolist,
     };
+    this.onComplete = this.onComplete.bind(this);
   }
 
   //newTask state
   newTask = {
     task: '', //task name
     id: Date.now(), //add the date and time
-    completed: false, //not doen yet
+    completed: false, //not done yet
   };
 
   onComplete = e => {
-    e.stopPropagation();
-    const name = e.target.className;
-    const index = this.state.todolist.findIndex( element => element.task === name);
-    const stateCopy = [...this.state.todolist];
-    stateCopy[index] = {
-      ...stateCopy[index],
-      completed: !stateCopy[index].completed,
-    };
-    this.setState({ todolist: stateCopy });
-    if (stateCopy[index].completed === false) {
-      e.target.style.textDecoration = 'none'; //if false no decoration
-    }else if (stateCopy[index].completed === true){
-      e.target.style.textDecoration = 'line-through'; //if true strike through the word
-    }
+  //  e.stopPropagation();
+ 
+    this.setState({ todolist: this.state.todolist.map( item => {
+      if(item.id === e){
+        return {...item, completed:!item.completed
+        };
+      } 
+      return item;
+    }) 
+  });
   };
 
   //handle Input Change
@@ -56,7 +53,7 @@ class App extends React.Component {
   //on Submit
   onSubmit = e =>{ 
     e.preventDefault(); 
-    e.stopPropagation();
+    // e.stopPropagation();
 
     this.setState({ todolist: [...this.state.todolist, this.newTask] });
     this.newTask = {
@@ -70,24 +67,28 @@ class App extends React.Component {
 
   //handle Clear Complete
 
-  onClear = e => {
-    e.preventDefault(); //prevent default behavior
-    e.stopPropagation(); //prevents bubbling up to parent or capturing down to child
-    const stateCopy = [...this.state.todolist];
-    const newState = [];
-    stateCopy.map((item) => { //No idea what is wrong here
-      if (item.complete === false) { //clears all tasks
-        newState.push(item);
-      }
-      this.setState({ todolist:newState });
-    });
-  };
+  onClear = (e) => {
+     e.preventDefault(); //prevent default behavior
+    // e.stopPropagation(); //prevents bubbling up to parent or capturing down to child
+    // const stateCopy = [...this.state.todolist];
+    // const newState = [];
+    // stateCopy.map((item) => { 
+    //   if (item.complete === false) { //clears all tasks but i want it to only clear finished tasks
+    //     newState.push(item);
+    //   }
+      this.setState({ todolist: this.state.todolist.filter(item => {
+        return !item.completed;
+      })  
+    }); //return uncompleted items
+
+    };
+  
 
   render() {
-    return (
+    return (  
       <div className='container'>
         <h2>ToDo List</h2>
-        <List state={this.state} onComplete={this.onComplete} />
+        <List state={this.state.todolist} onComplete={this.onComplete} />
         <Form 
         onClear={this.onClear} 
         newTask={this.newTask} 

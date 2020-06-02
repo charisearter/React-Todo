@@ -58,3 +58,8 @@ button {
   border: 1px ridge #283739;
   border-radius: 3px;
 }
+
+.itemCompleted {
+  text-decoration: line-through;
+  color: red;
+}

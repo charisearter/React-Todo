@@ -9,10 +9,10 @@ const List = (props) => {
 
   return(
     <div className='list'>
-      {props.state.todolist.map(item => {
+      {props.state.map(item => {
         return (
           <Item
-          key={item.timestamp}
+          key={item.id}
           item={item}
           onComplete={props.onComplete}
           />
